@@ -24,7 +24,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MenuItem
 import com.afollestad.assent.Assent
@@ -32,20 +31,16 @@ import com.afollestad.assent.AssentActivity
 import com.afollestad.assent.AssentCallback
 import com.afollestad.assent.PermissionResultSet
 import mobile.substance.app.tags.DividerItemDecoration
-
-import mobile.substance.app.tags.fragments.RecyclerViewFragment
-import mobile.substance.sdk.music.loading.LibraryData
 import mobile.substance.app.tags.R
 import mobile.substance.app.tags.SpacingItemDecoration
-import mobile.substance.app.tags.TagEditorApp
+import mobile.substance.app.tags.TagIt
 import mobile.substance.app.tags.adapters.MainAdapter
+import mobile.substance.app.tags.fragments.RecyclerViewFragment
 import mobile.substance.app.tags.utils.RecyclerViewUtil
 import mobile.substance.sdk.music.core.objects.Album
 import mobile.substance.sdk.music.core.objects.Artist
 import mobile.substance.sdk.music.core.objects.Song
-import mobile.substance.sdk.music.loading.Library
-import mobile.substance.sdk.music.loading.LibraryConfig
-import mobile.substance.sdk.music.loading.tasks.Loader
+import mobile.substance.sdk.music.loading.LibraryData
 import java.util.*
 
 class MainActivity : AssentActivity(), AssentCallback {
@@ -81,7 +76,7 @@ class MainActivity : AssentActivity(), AssentCallback {
     private fun init(savedInstanceState: Bundle?) {
         initViews()
 
-        (application as TagEditorApp).buildLibrary()
+        (application as TagIt).buildLibrary()
 
         // Toolbar initialization
         setSupportActionBar(toolbar)

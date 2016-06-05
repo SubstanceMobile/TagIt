@@ -25,7 +25,7 @@ import mobile.substance.sdk.music.loading.LibraryData
 /**
  * Created by Julian on 03.06.16.
  */
-class TagEditorApp : Application() {
+class TagIt : Application() {
     private var isBuilt = false
 
     override fun onCreate() {
