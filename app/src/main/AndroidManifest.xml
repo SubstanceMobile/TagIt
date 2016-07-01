@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".TagIt"
@@ -23,6 +24,8 @@
         </activity>
         <activity android:name=".activities.ArtistDetailActivity"
             android:theme="@style/ArtistDetailTheme"/>
+        <activity android:name=".activities.AlbumEditorActivity"
+            android:theme="@style/AlbumEditorTheme" />
     </application>
 
 </manifest>

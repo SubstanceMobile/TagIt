@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2016 Substance Mobile
   ~
@@ -14,17 +15,6 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <string name="app_name">TagIt</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-
-    <string name="musicbrainz">MusicBrainz ID</string>
-    <string name="album">Album</string>
-    <string name="artist">Artist</string>
-    <string name="genre">Genre</string>
-
-</resources>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+    <fade android:interpolator="@android:interpolator/accelerate_decelerate" />
+</transitionSet>

@@ -20,7 +20,6 @@ import android.content.Context
 import android.content.res.Configuration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.util.TypedValue
 
 /**
@@ -31,9 +30,9 @@ object RecyclerViewUtil {
     fun calculateMaxAnimateablePosition(recyclerView: RecyclerView): Int {
         val fourDpinPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4f, recyclerView.context.resources.displayMetrics).toInt()
         val spanCount = if (recyclerView.layoutManager !is GridLayoutManager) 1 else (recyclerView.layoutManager as GridLayoutManager).spanCount
-        val size = (recyclerView.context.resources.displayMetrics.widthPixels - if (spanCount == 1) 2 * fourDpinPx else if (spanCount == 2) 3 * fourDpinPx else if (spanCount == 4) 5 * fourDpinPx else 0) / spanCount
+        val size = (recyclerView.context.resources.displayMetrics.widthPixels - (spanCount + 1) * fourDpinPx) / spanCount
         return (recyclerView.height / (size.toFloat() +
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 68f, recyclerView.context.resources.displayMetrics)
+                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 68.0f, recyclerView.context.resources.displayMetrics)
                 + fourDpinPx.toFloat()) * spanCount).toInt()
     }
 

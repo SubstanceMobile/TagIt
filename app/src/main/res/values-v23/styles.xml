@@ -27,10 +27,20 @@
     </style>
 
     <style name="ArtistDetailTheme" parent="AppTheme" >
+        <item name="android:windowSharedElementEnterTransition">@transition/default_se_transition</item>
+        <item name="android:windowSharedElementExitTransition">@transition/default_se_transition</item>
         <item name="android:windowEnterTransition">@transition/activity_transition_slide_bottom</item>
         <item name="android:windowExitTransition">@transition/activity_transition_slide_bottom</item>
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="AlbumEditorTheme" parent="AlbumEditorTheme.Base">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@transition/activity_transition_slide_bottom</item>
+        <item name="android:windowExitTransition">@transition/activity_transition_slide_bottom</item>
     </style>
 
 </resources>

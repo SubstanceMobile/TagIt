@@ -16,9 +16,7 @@
 
 package mobile.substance.app.tags.viewholders
 
-import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.support.annotation.Nullable
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -30,15 +28,23 @@ import mobile.substance.app.tags.utils.RecyclerViewUtil
  * Created by Julian on 02.06.16.
  */
 class ItemViewHolder(itemView: View, recyclerView: RecyclerView?) : RecyclerView.ViewHolder(itemView) {
-    val ANIM_MAX: Int? = if(recyclerView != null) RecyclerViewUtil.calculateMaxAnimateablePosition(recyclerView) else null
-    val title: TextView = itemView.findViewById(R.id.item_title) as TextView
-    var subtitle: TextView? = itemView.findViewById(R.id.item_subtitle) as TextView?
-    var image: ImageView? = itemView.findViewById(R.id.item_image) as ImageView?
+    var ANIM_MAX: Int? = if(recyclerView != null) RecyclerViewUtil.calculateMaxAnimateablePosition(recyclerView) else null
+    var title: TextView? = null
+    var subtitle: TextView? = null
+    var image: ImageView? = null
+    var text_container: View? = null
     var animated = false
+
+    init {
+        title = itemView.findViewById(R.id.item_title) as TextView
+        subtitle = itemView.findViewById(R.id.item_subtitle) as TextView?
+        image = itemView.findViewById(R.id.item_image) as ImageView?
+        text_container = itemView.findViewById(R.id.item_text_container)
+    }
 
     fun animateAlbum(adapter: AnimatorListenerAdapter) {
         if(adapterPosition < ANIM_MAX!! && !animated) {
-            if(adapterPosition + 1 > ANIM_MAX) animated = true
+            if(adapterPosition + 1 > ANIM_MAX!!) animated = true
             itemView.translationY = 800.0f
             itemView.animate()
                     .setStartDelay(adapterPosition * 100.toLong())

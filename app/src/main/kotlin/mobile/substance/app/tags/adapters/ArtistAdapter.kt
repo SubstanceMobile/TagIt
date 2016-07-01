@@ -27,6 +27,7 @@ import mobile.substance.sdk.music.core.objects.Album
 import mobile.substance.sdk.music.core.objects.Artist
 import mobile.substance.sdk.music.core.objects.MediaObject
 import mobile.substance.sdk.music.core.objects.Song
+import mobile.substance.sdk.music.core.utils.ModularAsyncTask
 import mobile.substance.sdk.music.loading.Library
 import mobile.substance.sdk.music.loading.LibraryData
 
@@ -40,16 +41,32 @@ class ArtistAdapter<T : MediaObject>(context: Context, artist: Artist, type: Lib
 
     init {
         when(type) {
-            LibraryData.ALBUMS -> Library.findAlbumsForArtistAsync(artist, object : Library.QueryResult<List<Album>> {
-                override fun onQueryResult(result: List<Album>) {
+            LibraryData.ALBUMS -> Library.findAlbumsForArtistAsync(artist, object : ModularAsyncTask.TaskCallback<List<Album>> {
+                override fun onTaskFailed(e: Exception) {
+
+                }
+
+                override fun onTaskResult(result: List<Album>) {
                     items = result as List<T>
                     notifyDataSetChanged()
                 }
+
+                override fun onTaskStart() {
+
+                }
             })
-            LibraryData.SONGS -> Library.findSongsForArtistAsync(artist, object : Library.QueryResult<List<Song>> {
-                override fun onQueryResult(result: List<Song>) {
+            LibraryData.SONGS -> Library.findSongsForArtistAsync(artist, object : ModularAsyncTask.TaskCallback<List<Song>> {
+                override fun onTaskFailed(e: Exception) {
+
+                }
+
+                override fun onTaskResult(result: List<Song>) {
                     items = result as List<T>
                     notifyDataSetChanged()
+                }
+
+                override fun onTaskStart() {
+
                 }
             })
         }

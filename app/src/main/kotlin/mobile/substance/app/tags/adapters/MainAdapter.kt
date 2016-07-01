@@ -23,9 +23,7 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Color
-import android.support.v4.animation.ValueAnimatorCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v7.widget.CardView
@@ -36,12 +34,10 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import mobile.substance.app.tags.R
+import mobile.substance.app.tags.activities.AlbumEditorActivity
 import mobile.substance.app.tags.activities.ArtistDetailActivity
 import mobile.substance.app.tags.viewholders.ItemViewHolder
-import mobile.substance.sdk.colors.ColorConstants
-import mobile.substance.sdk.colors.ColorPackage
-import mobile.substance.sdk.colors.DynamicColors
-import mobile.substance.sdk.colors.DynamicColorsCallback
+import mobile.substance.sdk.colors.*
 import mobile.substance.sdk.music.core.objects.Album
 import mobile.substance.sdk.music.core.objects.Artist
 import mobile.substance.sdk.music.core.objects.MediaObject
@@ -60,7 +56,7 @@ class MainAdapter<T : MediaObject>(context: Context, type: LibraryData, recycler
     val recyclerView = recyclerView
 
     init {
-        when(type) {
+        when (type) {
             LibraryData.ALBUMS -> {
                 Library.registerAlbumListener(object : Loader.TaskListener<Album> {
 
@@ -110,7 +106,7 @@ class MainAdapter<T : MediaObject>(context: Context, type: LibraryData, recycler
     }
 
     override fun getItemCount(): Int {
-        return if(items == null) 0 else items!!.size
+        return items?.size ?: 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ItemViewHolder? {
@@ -127,57 +123,58 @@ class MainAdapter<T : MediaObject>(context: Context, type: LibraryData, recycler
         val item = items!![position]
 
         if (item is Album) {
-            holder!!.title.text = item.albumName
+            holder!!.title?.text = item.albumName
             holder.subtitle?.text = item.albumArtistName
             holder.animateAlbum(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator?) {
-                    if(item.albumArtworkPath != null && item.albumArtworkPath!!.contains("/")) {
-                        Log.d("BaseAdapter.kt", "Generating colors for ${item.albumArtworkPath}")
-                        generateColors(holder, item)
-                    }
-
+                    generateColors(holder, item)
                 }
             })
+            holder.image?.setImageResource(R.drawable.default_artwork_gem)
+            Log.d("MainAdapter", item.albumArtworkPath)
             Glide.with(context).load(item.albumArtworkPath).placeholder(R.drawable.default_artwork_gem).crossFade().into(holder.image)
+            holder.itemView.setOnClickListener { context.startActivity(Intent(context, AlbumEditorActivity::class.java).putExtra("album_id", item.id), ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity).toBundle()) }
 
-        } else if(item is Artist) {
-            holder!!.title.text = item.artistName
-            holder!!.itemView.setOnClickListener { context.startActivity(Intent(context, ArtistDetailActivity::class.java).putExtra("artist_id", item.id), ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity).toBundle()) }
-        } else if(item is Song) {
-            holder!!.title.text = item.songTitle
+        } else if (item is Artist) {
+            holder!!.title?.text = item.artistName
+            holder.itemView.setOnClickListener { context.startActivity(Intent(context, ArtistDetailActivity::class.java).putExtra("artist_id", item.id), ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity).toBundle()) }
+        } else if (item is Song) {
+            holder!!.title?.text = item.songTitle
             holder.subtitle?.text = item.songArtistName
+            holder.image?.setImageResource(R.drawable.default_artwork_gem)
             Library.findAlbumById(item.songAlbumID!!)!!.requestArt(holder.image!!)
         }
 
     }
 
     private fun generateColors(holder: ItemViewHolder, item: Album) {
+        if (item.colors != null) return animateAlbum(holder, item)
         try {
             DynamicColors
-                        .from(item.albumArtworkPath!!)
-                        .generateSimple(object : DynamicColorsCallback {
-
-                            override fun onColorsReady(colors: ColorPackage) {
-                                item.colors = colors
-                                animateAlbum(holder, item)
-                            }
-
-                        })
-        } catch(e: NullPointerException) {}
+                    .from(item.albumArtworkPath!!)
+                    .generateSimple(object : DynamicColorsCallback {
+                        override fun onColorsReady(colors: ColorPackage) {
+                            item.colors = colors
+                            animateAlbum(holder, item)
+                        }
+                    })
+        } catch(e: NullPointerException) { animateAlbum(holder, item)}
     }
 
     private fun animateAlbum(holder: ItemViewHolder, item: Album) {
-        val colorAnim = ValueAnimator.ofObject(ArgbEvaluator(), Color.parseColor("#333333"), (item.colors!! as ColorPackage).primaryColor )
+        if(item.colors == null) item.colors = DynamicColorsOptions.defaultColors
+
+        val colorAnim = ValueAnimator.ofObject(ArgbEvaluator(), Color.WHITE, (item.colors!! as ColorPackage).primaryColor)
         colorAnim.duration = 500
         colorAnim.addUpdateListener {
             (holder.itemView as CardView).setCardBackgroundColor(it.animatedValue as Int)
         }
-        val primaryTextAnim = ValueAnimator.ofObject(ArgbEvaluator(), ColorConstants.TEXT_COLOR_DARK_BG, (item.colors!! as ColorPackage).textColor )
+        val primaryTextAnim = ValueAnimator.ofObject(ArgbEvaluator(), ColorConstants.TEXT_COLOR_LIGHT_BG, (item.colors!! as ColorPackage).textColor)
         primaryTextAnim.duration = 500
         primaryTextAnim.addUpdateListener {
-            holder.title.setTextColor(it.animatedValue as Int)
+            holder.title?.setTextColor(it.animatedValue as Int)
         }
-        val secondaryTextAnim = ValueAnimator.ofObject(ArgbEvaluator(), ColorConstants.TEXT_COLOR_SECONDARY_DARK_BG, (item.colors!! as ColorPackage).secondaryTextColor )
+        val secondaryTextAnim = ValueAnimator.ofObject(ArgbEvaluator(), ColorConstants.TEXT_COLOR_SECONDARY_LIGHT_BG, (item.colors!! as ColorPackage).secondaryTextColor)
         secondaryTextAnim.duration = 500
         secondaryTextAnim.addUpdateListener {
             holder.subtitle?.setTextColor(it.animatedValue as Int)

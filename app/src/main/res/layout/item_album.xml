@@ -21,7 +21,6 @@
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
-    app:cardBackgroundColor="#333333"
     app:cardPreventCornerOverlap="true">
 
     <LinearLayout
@@ -35,39 +34,40 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="?android:attr/selectableItemBackground"
-            android:src="@drawable/default_artwork_gem"
-            android:transitionName="imageExpansion" />
+            android:src="@drawable/default_artwork_gem" />
 
-        <FrameLayout
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/item_text_container"
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:layout_gravity="bottom">
+            android:layout_gravity="bottom"
+            android:gravity="center_vertical">
 
             <TextView
-                android:textColor="@color/primary_text_color_dark"
+                android:textColor="@color/primary_text_color_light"
                 android:id="@+id/item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_marginBottom="0dp"
                 android:fontFamily="sans-serif-medium"
                 android:paddingEnd="16dp"
+                android:paddingStart="16dp"
                 android:singleLine="true"
                 android:textSize="@dimen/text_size_default" />
 
             <TextView
-                android:textColor="@color/secondary_text_color_dark"
+                android:textColor="@color/secondary_text_color_light"
                 android:id="@+id/item_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_margin="16dp"
                 android:fontFamily="sans-serif-regular"
                 android:paddingEnd="16dp"
+                android:paddingStart="16dp"
                 android:singleLine="true"
                 android:textSize="@dimen/text_size_subitle" />
 
-        </FrameLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

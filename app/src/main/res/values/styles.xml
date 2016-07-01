@@ -27,6 +27,12 @@
 
     <style name="ArtistDetailTheme" parent="AppTheme" />
 
+    <style name="AlbumEditorTheme.Base" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorAccent">@android:color/black</item> // Needed for a black cursor
+    </style>
+
+    <style name="AlbumEditorTheme" parent="AlbumEditorTheme.Base" />
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

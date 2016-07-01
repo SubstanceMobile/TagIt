@@ -17,8 +17,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+def TAGIT_LASTFM_KEY = '"' + TAGIT_LASTFM_KEY + '"' ?: '"Define LAST.FM key for TagIt"';
+
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "23.0.3"
 
     defaultConfig {
@@ -26,7 +28,9 @@ android {
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
+
+        buildConfigField("String", "LASTFM_KEY", TAGIT_LASTFM_KEY)
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -45,10 +49,10 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
 
-    // Substance SDk
-    compile ('com.github.SubstanceMobile.SDK:dynamic-colors:1ad44da81eb79c8afe17d184b738dee35375a98b@aar') { transitive = true }
-    compile ('com.github.SubstanceMobile.SDK:music-loading:1ad44da81eb79c8afe17d184b738dee35375a98b@aar') { transitive = true }
-    compile ('com.github.SubstanceMobile.SDK:music-tags:1ad44da81eb79c8afe17d184b738dee35375a98b@aar') { transitive = true }
+    // Substance SDK
+    compile ('com.github.SubstanceMobile.SDK:dynamic-colors:73678e2325f2ce15240d7337749826a6edd3839c@aar') { transitive = true }
+    compile ('com.github.SubstanceMobile.SDK:music-loading:73678e2325f2ce15240d7337749826a6edd3839c@aar') { transitive = true }
+    compile ('com.github.SubstanceMobile.SDK:music-tags:73678e2325f2ce15240d7337749826a6edd3839c@aar') { transitive = true }
 
     // afollestad
     compile('com.afollestad:assent:0.2.2') { transitive = true }
@@ -57,13 +61,34 @@ dependencies {
     // RecyclerView fastscroller
     compile 'com.simplecityapps:recyclerview-fastscroll:1.0.9'
 
-    // Android support libs
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:cardview-v7:23.4.0'
-    compile 'com.android.support:palette-v7:23.4.0'
+    // Fab loading indicator
+    compile 'com.github.jorgecastilloprz:fabprogresscircle:1.01@aar'
 
-    // Kotlin
+    // Kotson (Google Gson bindings for Kotlin)
+    compile 'com.github.salomonbrys.kotson:kotson:2.3.0'
+
+    // Constraint layout
+
+    // Json parsing
+    compile 'org.json:json:20160212'
+
+    //EditText that can be themed dynamically
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+
+    // Android support libs
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:cardview-v7:24.0.0'
+    compile 'com.android.support:palette-v7:24.0.0'
+    compile 'com.android.support:support-v4:24.0.0'
+
+    // KotterKnife
+    compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+
+    // Asynchronous tasks
+    compile ('com.github.julianostarek:generictasks-android:0.1') { transitive = true }
+
+    // Kotlin stdlib
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 repositories {

@@ -23,7 +23,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import mobile.substance.app.tags.R
-import mobile.substance.sdk.music.core.objects.MediaObject
 import mobile.substance.sdk.music.loading.LibraryData
 
 
@@ -45,7 +44,7 @@ class RecyclerViewFragment constructor() : Fragment() {
         recyclerView = root.findViewById(R.id.app_general_recyclerview) as RecyclerView
 
         callback?.onReady(recyclerView!!)
-        if(type == null) type = callback?.getType()
+        if(type == null) type = callback?.type
 
         return root
 
@@ -55,7 +54,7 @@ class RecyclerViewFragment constructor() : Fragment() {
 
         fun onReady(recyclerView: RecyclerView)
 
-        fun getType(): LibraryData
+        val type: LibraryData
 
     }
 

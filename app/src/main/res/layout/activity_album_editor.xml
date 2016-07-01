@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2016 Substance Mobile
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            app:layout_scrollFlags="scroll"
+            android:id="@+id/activity_album_editor_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:title="Edit tags"
+            android:background="@android:color/transparent" />
+
+        <android.support.v7.widget.CardView
+            app:layout_scrollFlags="scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="0dp">
+
+            <ImageView
+                android:id="@+id/activity_album_editor_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/default_artwork_gem" />
+
+        </android.support.v7.widget.CardView>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/activity_album_editor_image_1"
+                android:src="@drawable/ic_album_black_24dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignTop="@+id/activity_album_editor_et_1"
+                android:layout_alignBottom="@+id/activity_album_editor_et_1" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:textSize="16sp"
+                app:met_primaryColor="@android:color/black"
+                app:met_floatingLabel="normal"
+                android:hint="Album"
+                android:fontFamily="sans-serif-regular"
+                android:id="@+id/activity_album_editor_et_1"
+                android:layout_toEndOf="@+id/activity_album_editor_image_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/activity_album_editor_image_2"
+                android:src="@drawable/ic_person_black_24dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignTop="@+id/activity_album_editor_et_2"
+                android:layout_alignBottom="@+id/activity_album_editor_et_2" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:textSize="16sp"
+                app:met_primaryColor="@android:color/black"
+                app:met_floatingLabel="normal"
+                android:hint="Artist"
+                android:fontFamily="sans-serif-regular"
+                android:id="@+id/activity_album_editor_et_2"
+                android:layout_toEndOf="@+id/activity_album_editor_image_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_album_editor_et_1" />
+
+            <ImageView
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/activity_album_editor_image_3"
+                android:src="@drawable/ic_sort_by_alpha_black_24dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignTop="@+id/activity_album_editor_et_3"
+                android:layout_alignBottom="@+id/activity_album_editor_et_3" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:textSize="16sp"
+                app:met_primaryColor="@android:color/black"
+                app:met_floatingLabel="normal"
+                android:hint="Genre"
+                android:fontFamily="sans-serif-regular"
+                android:id="@+id/activity_album_editor_et_3"
+                android:layout_toEndOf="@+id/activity_album_editor_image_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_album_editor_et_2" />
+
+            <ImageView
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/activity_album_editor_image_4"
+                android:src="@drawable/ic_domain_black_24dp"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/activity_album_editor_et_4"
+                android:layout_alignBottom="@+id/activity_album_editor_et_4" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:textSize="16sp"
+                app:met_primaryColor="@android:color/black"
+                app:met_floatingLabel="normal"
+                android:hint="Producer/Label"
+                android:fontFamily="sans-serif-regular"
+                android:id="@+id/activity_album_editor_et_4"
+                android:layout_toEndOf="@+id/activity_album_editor_image_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_album_editor_et_3" />
+
+            <ImageView
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/activity_album_editor_image_5"
+                android:src="@drawable/ic_musicbrainz"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignTop="@+id/activity_album_editor_et_5"
+                android:layout_alignBottom="@+id/activity_album_editor_et_5" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:textSize="16sp"
+                app:met_primaryColor="@android:color/black"
+                app:met_floatingLabel="normal"
+                android:hint="MusicBrainz ID"
+                android:fontFamily="sans-serif-regular"
+                android:id="@+id/activity_album_editor_et_5"
+                android:layout_toEndOf="@+id/activity_album_editor_image_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_album_editor_et_4" />
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <mobile.substance.app.tags.CustomFABProgressCircle
+        android:id="@+id/activity_album_editor_fab_progresscircle"
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_album_editor_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="normal"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_autorenew_black_24dp" />
+
+    </mobile.substance.app.tags.CustomFABProgressCircle>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

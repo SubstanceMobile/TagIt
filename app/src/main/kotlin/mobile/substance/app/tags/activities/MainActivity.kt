@@ -26,6 +26,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.TypedValue
 import android.view.MenuItem
+import butterknife.bindView
 import com.afollestad.assent.Assent
 import com.afollestad.assent.AssentActivity
 import com.afollestad.assent.AssentCallback
@@ -59,9 +60,9 @@ class MainActivity : AssentActivity(), AssentCallback {
             init(null)
     }
 
-    private var drawerLayout: DrawerLayout? = null
-    private var navigationView: NavigationView? = null
-    private var toolbar: Toolbar? = null
+    private val drawerLayout: DrawerLayout by bindView<DrawerLayout>(R.id.activity_main_drawer_layout)
+    private val navigationView: NavigationView by bindView<NavigationView>(R.id.activity_main_navigationview)
+    private val toolbar: Toolbar by bindView<Toolbar>(R.id.aactivity_main_toolbar)
     private var fragment: RecyclerViewFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,22 +71,20 @@ class MainActivity : AssentActivity(), AssentCallback {
         Thread() {
             run { if (!Assent.isPermissionGranted(Assent.READ_EXTERNAL_STORAGE)) Assent.requestPermissions(this, READ_PERMISSION_REQUEST_CODE, Assent.READ_EXTERNAL_STORAGE) else runOnUiThread { init(savedInstanceState) } }
         }.start()
-
     }
 
     private fun init(savedInstanceState: Bundle?) {
-        initViews()
 
         (application as TagIt).buildLibrary()
 
         // Toolbar initialization
         setSupportActionBar(toolbar)
-        toolbar?.setNavigationIcon(R.drawable.ic_drawer_black_24dp)
-        toolbar?.setNavigationOnClickListener { drawerLayout?.openDrawer(GravityCompat.START) }
+        toolbar.setNavigationIcon(R.drawable.ic_drawer_black_24dp)
+        toolbar.setNavigationOnClickListener { drawerLayout?.openDrawer(GravityCompat.START) }
 
         // NavigationView initialization
-        navigationView?.setNavigationItemSelectedListener {
-            drawerLayout?.closeDrawer(GravityCompat.START)
+        navigationView.setNavigationItemSelectedListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
             it.isChecked = true
             handleNavigation(false, it)
         }
@@ -96,12 +95,6 @@ class MainActivity : AssentActivity(), AssentCallback {
             handleNavigation(false, null)
         } else handleNavigation(true, null)
 
-    }
-
-    private fun initViews() {
-        drawerLayout = findViewById(R.id.activity_main_drawer_layout) as DrawerLayout
-        navigationView = findViewById(R.id.activity_main_navigationview) as NavigationView
-        toolbar = findViewById(R.id.aactivity_main_toolbar) as Toolbar
     }
 
     private fun handleNavigation(launch: Boolean, item: MenuItem?): Boolean {
@@ -137,9 +130,7 @@ class MainActivity : AssentActivity(), AssentCallback {
 
     object albumsCallback : RecyclerViewFragment.RecyclerViewCallback {
 
-        override fun getType(): LibraryData {
-            return LibraryData.ALBUMS
-        }
+        override val type: LibraryData = LibraryData.ALBUMS
 
         override fun onReady(recyclerView: RecyclerView) {
             recyclerView.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
@@ -152,9 +143,7 @@ class MainActivity : AssentActivity(), AssentCallback {
 
     object artistsCallback : RecyclerViewFragment.RecyclerViewCallback {
 
-        override fun getType(): LibraryData {
-            return LibraryData.ARTISTS
-        }
+        override val type: LibraryData = LibraryData.ARTISTS
 
         override fun onReady(recyclerView: RecyclerView) {
             recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
@@ -165,9 +154,7 @@ class MainActivity : AssentActivity(), AssentCallback {
 
     object songsCallback : RecyclerViewFragment.RecyclerViewCallback {
 
-        override fun getType(): LibraryData {
-            return LibraryData.SONGS
-        }
+        override val type: LibraryData = LibraryData.SONGS
 
         override fun onReady(recyclerView: RecyclerView) {
             recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
